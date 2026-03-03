@@ -1,0 +1,29 @@
+--ENG--
+
+Solution: Long Hunt (picoCTF)
+In this challenge, I was provided with a large server.log file containing a vast amount of data. My goal was to filter through the logs to extract the hidden flag.
+
+1. Initial Reconnaissance
+To understand the structure of the log file, I first used the following command to see general information:
+cat server.log | grep INFO
+
+2. Identifying the Flag Pattern
+Upon inspection, I discovered that the fragments of the password (flag) were labeled with the keyword FLAGPART. To isolate these specific lines, I refined my search:
+cat server.log | grep FLAGPART
+
+3. Data Cleaning and Deduplication
+The output contained many duplicate entries, making it difficult to reconstruct the flag. I used the uniq command to remove these duplicates. However, I learned an important rule: uniq only detects duplicate lines that are adjacent. To ensure uniq works correctly, the data must be ordered first. Therefore, I piped the output through sort before deduplicating.
+
+Final Optimized Command:
+cat server.log | grep FLAGPART | sort | uniq
+
+By sorting the lines alphabetically, identical "FLAGPART" entries were grouped together, allowing uniq to efficiently filter them out. I then combined the remaining unique parts to form the final flag.
+
+--TR--
+
+Bu bölümde içerisinde çok fazla veri olan bir server.log dosyası vardı. 
+Dosyalar hakkında biraz bilgi almak için "cat server.log | grep INFO" ile arama yaptım.
+Şifreyi içeren kısımların FLAGPART ile listelenmişti.
+Aramamı "cat server.log | grep FLAGPART olarak değiştirdim sonrasında da şifreyi oluşturan yapıları birleştirdim.
+Bu süreçte tekrar eden kısımlar için "uniq" kullanımını öğrendim ancak uniq komutunun düzgün çalışması için satırların yan yana gelmesi gerekir. Bu yüzden önce sort kullanmalıydım.
+Yani yeni kod "cat server.log | grep FLAGPART | sort | uniq" 
