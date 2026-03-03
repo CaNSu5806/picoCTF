@@ -1,0 +1,28 @@
+--ENG--
+
+Solution: Riddle Registry (picoCTF)
+I solved the "Riddle Registry" lab on picoCTF by analyzing the provided file named "Hidden Confidential Document". Below is the step-by-step walkthrough of the solution:
+
+1. Metadata Analysis
+I used ExifTool to inspect the metadata of the document. ExifTool is a powerful utility used to read, write, and edit meta information in various file types.
+
+2. Finding the Hidden Credential
+While examining the tags, I noticed a Base64-encoded string within the Author field.
+
+3. Decoding the Password
+To retrieve the plain text, I decoded the string using the following command in the terminal:
+
+echo -n "encoded_text" | base64 -d
+Breakdown of the command:
+echo -n: The -n (no newline) flag ensures that no hidden newline character is added to the string, sending only the exact text within the quotes to the next command.
+base64 -d: The -d (decode) flag takes the encoded string and converts it back into a human-readable format.
+The resulting output revealed the cleartext password required to complete the challenge.
+
+--TR--
+
+Bana verilen "Hidden Confidential Document" dosyasının bilgisine 'ExifTool' ulaştım.
+-Exiftool ile ile hangi etiketleri okuyabileceğimizi veya düzenleyebileceğimizi anlarız.-
+Gelen bilgilerden author kısmında base64 ile şifrelenmiş bir şifreye ulaştım.
+Metni // echo -n "encoded_text" | base64 -d ile çözdüm.
+Burada -n (no newline) sonuna gizli bir karakter ekleme, sadece tırnak içindeki metni gönder; -d (decode) kodlanmış dizini alır, çözerek tekrar okunabilir (insan diline) hale getirir.
+Çıkan metin şifredir.
