@@ -1,0 +1,38 @@
+--English--
+
+The practice of hiding data within JPG files is known as Steganography. In this lab, I started by gathering metadata from the provided img.jpg file using the exiftool img.jpg command.
+I discovered a Base64-encoded string within the Comment field. By executing echo -n "encoded_text" | base64 -d, I revealed another encoded layer, which I decoded again to obtain the final password for steghide.
+
+To extract the hidden data, I used the following command:
+steghide extract -sf img.jpg
+
+Command Breakdown:
+
+extract: Instructs the tool to find and retrieve hidden content from the file.
+
+-s (stego file): Specifies the "cover" file that contains the secret information.
+
+-f (file): Indicates that a filename will follow.
+
+After entering the password I discovered earlier, the tool generated a flag.txt file. I then used cat flag.txt to read the file and retrieve the flag.
+
+
+
+--Türkçe--
+
+JPG dosyalarının içine veri gizleme işine Steganografi denir. Bu çözümde, bize verilen img.jpg dosyası hakkında bilgi toplamak için exiftool img.jpg komutunu kullandım.
+
+Comment (Yorum) satırında Base64 ile şifrelenmiş bir metin buldum. Bu metni echo -n "sifreli_metin" | base64 -d komutuyla çözdüğümde, karşıma yine Base64 ile kodlanmış ve steghide için ipucu olan yeni bir metin çıktı. Onu da aynı yöntemle çözerek asıl şifreye ulaştım.
+
+Son adımda, gizli dosyayı dışarı çıkarmak için şu komutu kullandım:
+steghide extract -sf img.jpg
+
+Parametrelerin Anlamı:
+
+extract: Dosyanın içindeki gizli veriyi bulup dışarı çıkarmayı sağlar.
+
+-s (stego file): İçinde gizli bilgi barındıran "kapak" dosyayı işaret eder.
+
+-f (file): Ardından bir dosya adı geleceğini belirtir.
+
+Bir önceki adımda bulduğum şifreyi girince flag.txt dosyası oluşturuldu. cat flag.txt komutuyla dosyayı açarak bayrağa (flag) ulaştım.
