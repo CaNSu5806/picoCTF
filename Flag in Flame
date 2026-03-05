@@ -1,0 +1,17 @@
+Solution: Suspicious Log Analysis (Forensics)
+
+--ENG--
+
+After analyzing the massive logs.txt file provided by the SOC team, I identified that the content was Base64 encoded. My first step was to decode this data and output it to a new file:
+
+base64 -d logs.txt > sonuc.txt
+
+Upon inspecting the file with cat sonuc.txt, I discovered that the output was actually a PNG image file (identified by its file header). The image contained a password written in Hex format. I used CyberChef and applied the "From Hex" operation to decode this string, which successfully revealed the final flag.
+
+--TR--
+
+SOC ekibi tarafından bulunan devasa logs.txt dosyasını analiz ettiğimde, içeriğin Base64 ile kodlanmış olduğunu fark ettim. İlk adım olarak bu veriyi decode ederek yeni bir dosyaya aktardım:
+
+base64 -d logs.txt > sonuc.txt
+
+cat sonuc.txt komutuyla dosyayı incelediğimde, metnin aslında bir PNG dosyasının başlık bilgilerini (header) içerdiğini gördüm. Dosyayı görüntülediğimde üzerinde Hex formatında bir şifre yazılıydı. Bu şifreyi CyberChef platformuna taşıyarak "From Hex" filtresiyle çözdüm ve nihai bayrağa ulaştım.
