@@ -1,0 +1,25 @@
+-- ENG --
+
+I was provided with a corrupted file that could not be opened. Upon analyzing the file structure, I identified that the File Signature (also known as Magic Bytes) was incorrect.
+
+Every standard JPEG file must begin with the bytes FF D8. 
+This acts as a unique identifier for the operating system to recognize the file type. The provided file, however, started with 5C 78. Using an online Hex Editor, I modified these initial bytes to FF D8. After this correction, the file was successfully restored as a valid image, allowing me to retrieve the hidden flag.
+
+-- TR --
+
+Elimizde açılmayan bozuk bir dosya vardı. Dosyanın yapısını incelediğimde, dosya imzasının (magic bytes) hatalı olduğunu fark ettim.
+
+Dünyadaki bütün standart JPEG dosyaları istisnasız FF D8 baytlarıyla başlar. Bu, işletim sisteminin dosyayı tanımasını sağlayan bir "kimlik numarası" gibidir. Ancak bize verilen dosya 5C 78 ile başlıyordu. Bir online Hex Editor kullanarak dosyanın başlangıcındaki bu hatalı kısmı FF D8 ile değiştirdim.
+Bu işlemden sonra dosya başarıyla bir görsel olarak açıldı ve içerisindeki bayrağa ulaştım.
+
+Key Takeaway
+Bu yöntem sadece JPEG için değil, tüm dosya türleri için geçerlidir. Örneğin:
+
+PNG: 89 50 4E 47
+
+PDF: 25 50 44 46
+
+ZIP: 50 4B 03 04
+
+Eğer terminal üzerinden dosyanın ilk birkaç baytına hızlıca bakmak istersek şu komutu da kullanabiliriz:
+head -c 16 dosya_adi | xxd
