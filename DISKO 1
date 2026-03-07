@@ -1,0 +1,21 @@
+-- ENG --
+
+Challenge: Finding a hidden flag inside a compressed disk image (.dd.gz).
+
+Steps:
+Decompression: Used gunzip to extract the .gz file and obtain the raw disk image (.dd).
+
+String Extraction: Since the disk image contained a massive amount of raw data, I used the strings command to extract all human-readable sequences.
+
+Filtering: To isolate the flag from thousands of lines of text, I piped the output to grep and searched for the "picoCTF" pattern.
+
+Outcome: The flag was successfully recovered from the disk blocks as plain text.
+
+-- TR -- 
+
+Elimizde .gz uzantılı bir dosya var.
+Bunu "gunzip dosya.dd.gz" ile açtım.
+Şimdi elimde dosya.dd dosyası var.
+Bu dosyayı strgings ile okunabilir bütün metinleri ayıklayıp ekrana bastım.
+Çok fazla veri vardı ve benim aradağım yalnızca bayrak olduğu için
+"strings dosya.dd | grep picoCTF" ile bayrağa ulaştım.
