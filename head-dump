@@ -1,0 +1,36 @@
+--ENG--
+
+In this challenge, I was tasked with finding a hidden endpoint on a blog application that contained a secret flag. While exploring the API documentation article, I discovered a hidden path: /heapdump.
+
+Accessing this endpoint triggered the download of a server memory dump file. Initially, I attempted to search for the flag using strings heapdump | grep -i "pico", but the output was overwhelmed with irrelevant data. To precisely isolate the flag, I utilized Regular Expressions (Regex) with the following command:
+
+strings heapdump | grep -E "picoCTF\{.*?\}"
+
+Command Breakdown:
+
+strings: Extracts human-readable text strings from binary files.
+
+grep -E: Enables the use of Extended Regular Expressions.
+
+"picoCTF{.*?}": Matches the specific flag pattern starting with "picoCTF{", followed by any characters, and ending with "}".
+
+This filtered approach allowed me to bypass the noise and retrieve the flag directly from the heap dump.
+
+
+--TR--
+
+Bu meydan okumada, bir blog sitesi üzerinde gizli bir bayrağı barındıran uç noktayı bulmam istendi. Site içerisindeki API dokümantasyonu makalesini incelediğimde, sunucunun bellek dökümünü veren /heapdump yolunu keşfettim.
+
+Bu adresten inen dosyayı analiz etmek için önce standart strings heapdump | grep -i "pico" komutunu denedim; ancak veri miktarı çok fazla olduğu için sonuçlar karmaşıktı. Sadece bayrak formatına uygun olan kısmı filtrelemek için Düzenli İfadeler (Regex) kullanarak şu komutu çalıştırdım:
+
+strings heapdump | grep -E "picoCTF\{.*?\}"
+
+Komut Açıklaması:
+
+strings: İkilik (binary) dosya içindeki okunabilir metinleri ayıklar.
+
+grep -E: Gelişmiş düzenli ifadeleri (Extended Regex) kullanmamızı sağlar.
+
+"picoCTF{.*?}": "picoCTF{" ile başlayan, içeride herhangi bir karakter barındıran ve "}" ile biten kalıbı yakalar.
+
+Bu sayede kalabalık veriler arasından doğrudan doğru bayrağa ulaştım.
