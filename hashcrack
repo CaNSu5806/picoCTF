@@ -1,0 +1,22 @@
+--ENG--
+The Challenge: I encountered a system where access was protected by weakly encrypted passwords. The goal was to recover the plaintext password from its hashed format to gain server access.
+
+The Process: By analyzing the provided hash using tools like hashid, I identified the algorithm as MD5 (Message Digest 5).
+MD5 is a widely used but now deprecated cryptographic hash function that produces a 128-bit hash value. It is considered "broken" for password storage because it is mathematically prone to collisions and is extremely fast to compute, making it vulnerable to high-speed cracking.
+
+The Exploit: I utilized CrackStation, a powerful online service that uses Rainbow Tables. A Rainbow Table is a precomputed table for reversing cryptographic hash functions.
+Instead of trying every possible combination (brute-force), the tool simply "looks up" the hash in a massive database of billions of previously cracked passwords.
+
+The Takeaway: The core vulnerability here was the lack of "Salting" (adding unique random data to each password before hashing). Without a salt, identical passwords result in identical hashes, allowing attackers to use precomputed tables to bypass security in seconds.
+
+--TR--
+
+Görev: Erişimi zayıf şifrelenmiş parolalarla korunan bir sistemde, sunucuya giriş yapabilmek için hash formatındaki parolanın orijinal halini (düz metin) elde etmem gerekiyordu.
+
+Süreç: Sunucu tarafından verilen veriyi hashid gibi araçlarla analiz ettiğimde, algoritmanın MD5 (Message Digest 5) olduğunu saptadım.
+MD5, 128 bitlik çıktı üreten, geçmişte yaygın kullanılmış ancak günümüzde güvenliğini yitirmiş bir kriptografik özet fonksiyonudur. Parola saklamak için "kusurlu" kabul edilir; çünkü hem matematiksel çakışmalara (collision) müsaittir hem de işlem hızı çok yüksek olduğu için saniyeler içinde milyarlarca denemeye (brute-force) maruz kalabilir.
+
+Sömürü: Bu aşamada, devasa Gökkuşağı Tabloları (Rainbow Tables) kullanan CrackStation servisinden yararlandım. Gökkuşağı Tablosu, hash fonksiyonlarını tersine çevirmek için önceden hesaplanmış çıktıları barındıran devasa bir veritabanıdır.
+Sistem her kombinasyonu tek tek denemek yerine, elimizdeki hash değerini milyarlarca kayıt arasından "arayıp bularak" orijinal parolasını saniyeler içinde bana sundu.
+
+Ders: Buradaki asıl güvenlik açığı, parolaların "Tuzlanmamış" (Salting) olmasıydı. Tuzlama işlemi yapılmadığında, aynı parolalar her zaman aynı hash değerini üretir; bu da saldırganların önceden hazırlanmış tablolarla güvenliği kolayca aşmasına olanak tanır.
