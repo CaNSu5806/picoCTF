@@ -1,0 +1,48 @@
+--ENG--
+In this challenge, we were given a Python script that processes song lyrics. The program starts reading from [VERSE1], skipping the very beginning of the file where the secret flag is stored (index 0). There is no "legal" way in the code to reach that starting section.
+
+The Vulnerability: Semicolon Parsing Flaw
+While analyzing the source code, I identified two key behaviors:
+
+Splitting: The program splits each line by the ; (semicolon) character and processes the parts sequentially.
+
+Jump Command: If a line contains RETURN [NUMBER], the program jumps to that specific line index.
+
+The hurdle was that the program increments the line counter (lip += 1) immediately after user input, effectively skipping over any command I typed in the CROWD section.
+
+The Solution: Injecting the Return Command
+To force the program to read my command before moving to the next line, I utilized the semicolon delimiter:
+ ;RETURN 0
+
+The interpreter processed the empty string before the semicolon first (doing nothing).
+
+Crucially, it then processed the second part of the same line: RETURN 0.
+
+This triggered the jump logic before the line counter could skip ahead, successfully redirecting the program back to index 0 where the hidden flag was revealed.
+
+
+
+--TR--
+
+Bu labda bize bir Python dosyası ve şarkı sözleri verildi. Program şarkıyı okumaya en baştan değil, [VERSE1] (1. Kıta) kısmından başlıyordu. Ancak asıl bayrak (flag), şarkının en başındaki (0. satır) gizli bir bölümde saklıydı. Programın normal akışında bu bölüme ulaşmak imkansızdı.
+
+Zafiyet: Programın "Noktalı Virgül" Takıntısı
+Programın kaynak kodunu incelediğimde iki önemli şey fark ettim:
+
+Parçalama: Program her satırı ; (noktalı virgül) işaretine göre parçalara ayırıp sırayla okuyor.
+
+Atlama Komutu: Eğer bir satırda RETURN [SAYI] yazıyorsa, program şarkının o numaralı satırına atlıyor.
+
+Ancak bir sorun vardı: Biz CROWD kısmına bir şey yazdığımızda, program o satırı kaydediyor ama hemen bir alt satıra geçiyordu. Yani yazdığımız komutu okumadan üzerinden atlıyordu.
+
+Çözüm: Sistemi Kendi Silahıyla Vurmak
+Programın bir alt satıra geçmesini engellemek için "noktalı virgül" hilesini kullandım. Crowd: kısmına şunu yazdım:
+ ;RETURN 0
+
+Neler oldu?
+
+Program önce noktalı virgülden önceki boşluğu okudu (hiçbir şey yapmadı).
+
+İşaretçi (pointer) henüz alt satıra geçmeden, aynı satırın devamındaki RETURN 0 komutunu yakaladı.
+
+Bu komut sayesinde programı şarkının en başına, yani bayrağın gizli olduğu 0. satıra göndermiş oldum.
