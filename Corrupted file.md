@@ -1,7 +1,3 @@
-# 🛠️ Write-Up
-
-## 🇬🇧 English
-
 ### Challenge Overview
 
 The challenge provided a corrupted image file that could not be opened normally. Instead of assuming the file was completely damaged, I examined its file structure to determine whether the issue was related to the file header.
@@ -36,7 +32,7 @@ After saving the changes, the file became a valid JPEG image and opened successf
 
 ---
 
-## 💡 Key Takeaway
+## Key Takeaway
 
 This technique is not limited to JPEG files. Almost every file format has its own unique file signature.
 
@@ -93,7 +89,7 @@ Değişikliği kaydettikten sonra dosya başarıyla bir JPEG görseli olarak aç
 
 ---
 
-## 💡 Çıkarım
+## Çıkarım
 
 Bu yöntem yalnızca JPEG dosyaları için geçerli değildir. Hemen hemen tüm dosya türlerinin kendilerine ait benzersiz bir **Magic Byte** dizisi bulunur.
 
