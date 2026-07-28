@@ -1,6 +1,4 @@
-# 🛠️ Write-Up
-
-# 🇬🇧 English
+#English
 
 ## Challenge Overview
 
