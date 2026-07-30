@@ -40,7 +40,7 @@ After sorting and removing duplicate entries, I combined the remaining unique fl
 
 ---
 
-## 💡 Key Takeaway
+## Key Takeaway
 
 This challenge demonstrates how combining simple Linux commands can make log analysis much more efficient.
 
@@ -99,7 +99,7 @@ Bu komut sayesinde aynı kayıtlar yan yana getirildi, tekrar eden satırlar kal
 
 ---
 
-## 💡 Çıkarım
+## Çıkarım
 
 Bu challenge, Linux komutlarının birlikte kullanıldığında log analizi için ne kadar güçlü olduğunu göstermektedir.
 
